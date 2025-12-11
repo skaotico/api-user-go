@@ -1,7 +1,10 @@
 package user
 
-import domainUser "api-user-go/internal/domain/user"
+import (
+	"api-user-go/internal/service/user/dto"
+	"context"
+)
 
 type UserService interface {
-	CreateUser(user *domainUser.User) error
+	CreateUser(userDTO *dto.CreateUserRequest, ctx context.Context) (*dto.UserCreateResponse, error)
 }

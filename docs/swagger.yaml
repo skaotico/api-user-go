@@ -1,0 +1,143 @@
+basePath: /v1
+definitions:
+  dto.CreateUserRequest:
+    properties:
+      address_line:
+        example: Calle Falsa 123
+        maxLength: 20
+        minLength: 3
+        type: string
+      birth_date:
+        example: "1990-01-01T00:00:00Z"
+        type: string
+      country_id:
+        example: 56
+        type: integer
+      email:
+        example: user@example.com
+        type: string
+      first_name:
+        example: Yosemar
+        maxLength: 20
+        minLength: 3
+        type: string
+      last_name:
+        example: Andrade
+        maxLength: 20
+        minLength: 3
+        type: string
+      password:
+        example: secret123
+        maxLength: 20
+        minLength: 8
+        type: string
+      phone:
+        example: "+56912345678"
+        maxLength: 20
+        minLength: 8
+        type: string
+      username:
+        example: yandrade
+        maxLength: 20
+        minLength: 3
+        type: string
+    required:
+    - address_line
+    - country_id
+    - email
+    - first_name
+    - last_name
+    - password
+    - phone
+    - username
+    type: object
+  dto.UserCreateResponse:
+    properties:
+      address_line:
+        example: Calle Falsa 123
+        type: string
+      birth_date:
+        example: "1990-01-01T00:00:00Z"
+        type: string
+      country_id:
+        example: 56
+        type: integer
+      created_at:
+        example: "2025-12-04T10:00:00Z"
+        type: string
+      email:
+        example: user@example.com
+        type: string
+      first_name:
+        example: Yosemar
+        type: string
+      id:
+        example: 1
+        type: integer
+      is_active:
+        example: true
+        type: boolean
+      last_name:
+        example: Andrade
+        type: string
+      phone:
+        example: "+56912345678"
+        type: string
+      username:
+        example: yandrade
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API para gestión de usuarios.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API User Go
+  version: "1.0"
+paths:
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with the input payload
+      parameters:
+      - description: Create User Request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/dto.UserCreateResponse'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new user
+      tags:
+      - users
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
